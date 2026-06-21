@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Layout, Settings } from "lucide-react";
+import { Layout, Settings, CheckCircle2 } from "lucide-react";
 
 const links = [
   { name: "Board", href: "/", icon: Layout },
@@ -15,9 +15,16 @@ export function Sidebar() {
   return (
     <aside className="sidebar">
       <Link href="/" className="sidebar-brand">
-        <span className="sidebar-logo-mark">W</span>
-        <span className="sidebar-logo-text">Workflow</span>
+        <span className="sidebar-logo-mark">
+          <CheckCircle2 size={20} strokeWidth={2.5} />
+        </span>
+        <div className="sidebar-logo-group">
+          <span className="sidebar-logo-text">Workflow</span>
+          <span className="sidebar-logo-sub">Task Management</span>
+        </div>
       </Link>
+
+      <div className="sidebar-divider" />
 
       <nav className="sidebar-nav">
         {links.map((link) => {
@@ -36,6 +43,13 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      <div className="sidebar-footer">
+        <div className="sidebar-footer-pill">
+          <span className="sidebar-footer-dot" />
+          <span className="sidebar-footer-text">v1.0</span>
+        </div>
+      </div>
     </aside>
   );
 }

@@ -1,10 +1,8 @@
-import "@/styles/tokens.css";
-import "@/styles/foundation.css";
-import "@/styles/components.css";
 import "@/app/globals.css";
 
 import { Inter, Poppins } from "next/font/google";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import { BoardProvider } from "@/components/providers/BoardProvider";
 import { SearchProvider } from "@/components/providers/SearchProvider";
 import { Sidebar } from "@/components/layout/Sidebar";
@@ -36,15 +34,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
-        <BoardProvider>
-          <ModalProvider>
-            <SearchProvider>
-              <Sidebar />
-              <Header />
-              <main className="main-content">{children}</main>
-            </SearchProvider>
-          </ModalProvider>
-        </BoardProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
+          <BoardProvider>
+            <ModalProvider>
+              <SearchProvider>
+                <Sidebar />
+                <Header />
+                <main className="main-content">{children}</main>
+              </SearchProvider>
+            </ModalProvider>
+          </BoardProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
