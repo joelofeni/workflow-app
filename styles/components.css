@@ -499,9 +499,34 @@
   }
 
   .board {
-    flex-direction: column;
-    align-items: stretch;
-    overflow-x: visible;
+    display: flex;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    overflow-x: auto;
+    min-height: calc(100vh - 64px);
+  }
+
+  /* ---------- SEARCH EMPTY STATE ---------- */
+
+  .board-empty {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+  }
+
+  .empty-state {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+  }
+
+  .empty-state-text {
+    font-size: var(--text-body);
+    color: var(--text-secondary);
   }
 
   .column {

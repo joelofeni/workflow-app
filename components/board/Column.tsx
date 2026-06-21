@@ -10,6 +10,7 @@ interface ColumnProps {
   tasks: Task[];
   onOpenCreate: () => void;
   onOpenEdit: (taskId: string) => void;
+  isDragDisabled?: boolean;
 }
 
 export function Column({
@@ -17,9 +18,10 @@ export function Column({
   tasks,
   onOpenCreate,
   onOpenEdit,
+  isDragDisabled,
 }: ColumnProps) {
   return (
-    <Droppable droppableId={column.id}>
+    <Droppable droppableId={column.id} isDropDisabled={isDragDisabled}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
@@ -40,6 +42,7 @@ export function Column({
                 task={task}
                 index={index}
                 onEdit={() => onOpenEdit(task.id)}
+                isDragDisabled={isDragDisabled}
               />
             ))}
             {provided.placeholder}

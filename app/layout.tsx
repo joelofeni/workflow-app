@@ -6,6 +6,7 @@ import "@/app/globals.css";
 import { Inter, Poppins } from "next/font/google";
 import type { Metadata } from "next";
 import { BoardProvider } from "@/components/providers/BoardProvider";
+import { SearchProvider } from "@/components/providers/SearchProvider";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { ModalProvider } from "@/components/providers/ModalProviders";
@@ -37,9 +38,11 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         <BoardProvider>
           <ModalProvider>
-            <Sidebar />
-            <Header />
-            <main className="main-content">{children}</main>
+            <SearchProvider>
+              <Sidebar />
+              <Header />
+              <main className="main-content">{children}</main>
+            </SearchProvider>
           </ModalProvider>
         </BoardProvider>
       </body>

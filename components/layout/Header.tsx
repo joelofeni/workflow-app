@@ -2,10 +2,12 @@
 
 import { Plus, Search } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useSearch } from "@/components/providers/SearchProvider";
 import { useModal } from "../providers/ModalProviders";
 
 export function Header() {
   const { openCreate } = useModal();
+  const { query, setQuery } = useSearch();
 
   return (
     <header className="header">
@@ -31,6 +33,8 @@ export function Header() {
             placeholder="Search tasks..."
             className="header-search"
             style={{ paddingLeft: "40px" }}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
 
