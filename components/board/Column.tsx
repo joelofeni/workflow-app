@@ -1,6 +1,7 @@
 "use client";
 
-import { Droppable } from "@hello-pangea/dnd";
+import { motion } from "framer-motion";
+import { Droppable, Draggable } from "@hello-pangea/dnd";
 import { Column as ColumnType, Task } from "@/types/board";
 import { TaskCard } from "./TaskCard";
 import { AddTaskButton } from "./AddTaskButton";
@@ -23,10 +24,13 @@ export function Column({
   return (
     <Droppable droppableId={column.id} isDropDisabled={isDragDisabled}>
       {(provided, snapshot) => (
-        <div
+        <motion.div
           ref={provided.innerRef}
           {...provided.droppableProps}
           className={`column ${snapshot.isDraggingOver ? "column-dragover" : ""}`}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
         >
           <div className="column-header">
             <h2 className="column-title">{column.title}</h2>
@@ -37,19 +41,31 @@ export function Column({
 
           <div className="column-tasks">
             {tasks.map((task, index) => (
-              <TaskCard
+              <Draggable
                 key={task.id}
-                task={task}
+                draggableId={task.id}
                 index={index}
-                onEdit={() => onOpenEdit(task.id)}
                 isDragDisabled={isDragDisabled}
-              />
+              >
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={`task-card ${snapshot.isDragging ? "task-card-dragging" : ""}`}
+                    onClick={() => onOpenEdit(task.id)}
+                    style={provided.draggableProps.style}
+                  >
+                    <TaskCard task={task} />
+                  </div>
+                )}
+              </Draggable>
             ))}
             {provided.placeholder}
           </div>
 
           <AddTaskButton onClick={onOpenCreate} />
-        </div>
+        </motion.div>
       )}
     </Droppable>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useBoard } from "@/hooks/useBoard";
 import { TaskForm } from "./TaskForm";
 import { useModal } from "../providers/ModalProviders";
@@ -50,47 +51,67 @@ export function TaskModal() {
     }
   }, [mode, editingTaskId, dispatch, close]);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="modal-backdrop" onClick={close}>
-      <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2 className="modal-title">
-            {mode === "create" ? "New Task" : "Edit Task"}
-          </h2>
-          <button className="modal-close" onClick={close} aria-label="Close">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="modal-backdrop"
+          onClick={close}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          <motion.div
+            className="modal-panel"
+            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+          >
+            <div className="modal-header">
+              <h2 className="modal-title">
+                {mode === "create" ? "New Task" : "Edit Task"}
+              </h2>
+              <button
+                className="modal-close"
+                onClick={close}
+                aria-label="Close"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
 
-        <TaskForm
-          initialValues={
-            editingTask
-              ? {
-                  title: editingTask.title,
-                  description: editingTask.description,
-                }
-              : { title: "", description: "" }
-          }
-          mode={mode}
-          onSave={handleSave}
-          onDelete={handleDelete}
-          onCancel={close}
-        />
-      </div>
-    </div>
+            <TaskForm
+              initialValues={
+                editingTask
+                  ? {
+                      title: editingTask.title,
+                      description: editingTask.description,
+                    }
+                  : { title: "", description: "" }
+              }
+              mode={mode}
+              onSave={handleSave}
+              onDelete={handleDelete}
+              onCancel={close}
+            />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
