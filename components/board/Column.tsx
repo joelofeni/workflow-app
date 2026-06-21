@@ -1,5 +1,6 @@
 "use client";
 
+import { Droppable } from "@hello-pangea/dnd";
 import { Column as ColumnType, Task } from "@/types/board";
 import { TaskCard } from "./TaskCard";
 import { AddTaskButton } from "./AddTaskButton";
@@ -18,25 +19,35 @@ export function Column({
   onOpenEdit,
 }: ColumnProps) {
   return (
-    <div className="column">
-      <div className="column-header">
-        <h2 className="column-title">{column.title}</h2>
-        <span className="column-count" suppressHydrationWarning>
-          {tasks.length}
-        </span>
-      </div>
+    <Droppable droppableId={column.id}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className={`column ${snapshot.isDraggingOver ? "column-dragover" : ""}`}
+        >
+          <div className="column-header">
+            <h2 className="column-title">{column.title}</h2>
+            <span className="column-count" suppressHydrationWarning>
+              {tasks.length}
+            </span>
+          </div>
 
-      <div className="column-tasks">
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onEdit={() => onOpenEdit(task.id)}
-          />
-        ))}
-      </div>
+          <div className="column-tasks">
+            {tasks.map((task, index) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                index={index}
+                onEdit={() => onOpenEdit(task.id)}
+              />
+            ))}
+            {provided.placeholder}
+          </div>
 
-      <AddTaskButton onClick={onOpenCreate} />
-    </div>
+          <AddTaskButton onClick={onOpenCreate} />
+        </div>
+      )}
+    </Droppable>
   );
 }

@@ -440,6 +440,30 @@
   background: var(--color-error-soft);
 }
 
+/* ---------- DRAG & DROP ---------- */
+
+/* Task card while dragging */
+.task-card-dragging {
+  opacity: 0.85;
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-float);
+  transform: rotate(2deg);
+  cursor: grabbing;
+}
+
+/* Column while drag is over it */
+.column-dragover {
+  border-color: var(--border-accent);
+  background: var(--bg-active);
+}
+
+/* DnD placeholder styling */
+.column-tasks > [data-rbd-placeholder-context-id] {
+  background: var(--accent-glow);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-3);
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
   .sidebar {
