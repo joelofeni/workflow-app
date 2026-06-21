@@ -63,6 +63,9 @@ export function TaskModal() {
           transition={{ duration: 0.15 }}
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
             className="modal-panel"
             onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, scale: 0.96 }}

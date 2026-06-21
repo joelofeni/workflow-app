@@ -78,7 +78,12 @@ export function TaskForm({
       <div className="modal-actions">
         <div>
           {mode === "edit" && (
-            <button type="button" onClick={onDelete} className="btn-danger">
+            <button
+              type="button"
+              onClick={onDelete}
+              className="btn-danger"
+              aria-label="Delete task"
+            >
               Delete
             </button>
           )}

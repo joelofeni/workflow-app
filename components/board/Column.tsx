@@ -34,7 +34,11 @@ export function Column({
         >
           <div className="column-header">
             <h2 className="column-title">{column.title}</h2>
-            <span className="column-count" suppressHydrationWarning>
+            <span
+              className="column-count"
+              suppressHydrationWarning
+              aria-label={`${tasks.length} tasks in ${column.title}`}
+            >
               {tasks.length}
             </span>
           </div>
