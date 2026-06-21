@@ -21,7 +21,9 @@ export function Column({
     <div className="column">
       <div className="column-header">
         <h2 className="column-title">{column.title}</h2>
-        <span className="column-count">{tasks.length}</span>
+        <span className="column-count" suppressHydrationWarning>
+          {tasks.length}
+        </span>
       </div>
 
       <div className="column-tasks">

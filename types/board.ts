@@ -43,4 +43,8 @@ export type BoardAction =
         sourceIndex: number;
         destIndex: number;
       };
+    }
+  | {
+      type: "REHYDRATE";
+      payload: Board;
     };

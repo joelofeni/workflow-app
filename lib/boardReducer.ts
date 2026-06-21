@@ -69,7 +69,6 @@ export function boardReducer(state: Board, action: BoardAction): Board {
 
       if (!sourceColumn || !destColumn) return state;
 
-      // Same column reorder
       if (sourceColumnId === destColumnId) {
         const newTaskIds = Array.from(sourceColumn.taskIds);
         newTaskIds.splice(sourceIndex, 1);
@@ -85,7 +84,6 @@ export function boardReducer(state: Board, action: BoardAction): Board {
         };
       }
 
-      // Cross-column move
       const newSourceTaskIds = sourceColumn.taskIds.filter(
         (id) => id !== taskId,
       );
@@ -112,6 +110,10 @@ export function boardReducer(state: Board, action: BoardAction): Board {
           return column;
         }),
       };
+    }
+
+    case "REHYDRATE": {
+      return action.payload;
     }
 
     default:
