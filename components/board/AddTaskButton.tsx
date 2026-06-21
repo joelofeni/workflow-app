@@ -1,5 +1,5 @@
 "use client";
 
 export function AddTaskButton() {
-  return <button>AddTaskButton</button>;
+  return <button className="add-task-btn">+ Add task</button>;
 }
