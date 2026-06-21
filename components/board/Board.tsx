@@ -1,16 +1,18 @@
 "use client";
 
-import { initialBoard } from "@/data/initialBoard";
+import { useBoard } from "@/hooks/useBoard";
 import { Column } from "./Column";
 
 export function Board() {
+  const { state } = useBoard();
+
   return (
     <div className="board">
-      {initialBoard.columns.map((column) => (
+      {state.columns.map((column) => (
         <Column
           key={column.id}
           column={column}
-          tasks={column.taskIds.map((id) => initialBoard.tasks[id])}
+          tasks={column.taskIds.map((id) => state.tasks[id])}
         />
       ))}
     </div>
