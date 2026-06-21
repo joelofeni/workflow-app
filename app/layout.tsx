@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { BoardProvider } from "@/components/providers/BoardProvider";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
+import { ModalProvider } from "@/components/providers/ModalProviders";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,9 +36,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         <BoardProvider>
-          <Sidebar />
-          <Header />
-          <main className="main-content">{children}</main>
+          <ModalProvider>
+            <Sidebar />
+            <Header />
+            <main className="main-content">{children}</main>
+          </ModalProvider>
         </BoardProvider>
       </body>
     </html>

@@ -2,8 +2,11 @@
 
 import { Plus, Search } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useModal } from "../providers/ModalProviders";
 
 export function Header() {
+  const { openCreate } = useModal();
+
   return (
     <header className="header">
       <div className="header-left">
@@ -33,7 +36,7 @@ export function Header() {
 
         <ThemeToggle />
 
-        <button className="header-btn">
+        <button className="header-btn" onClick={() => openCreate("todo")}>
           <Plus size={16} />
           New Task
         </button>

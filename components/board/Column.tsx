@@ -7,9 +7,16 @@ import { AddTaskButton } from "./AddTaskButton";
 interface ColumnProps {
   column: ColumnType;
   tasks: Task[];
+  onOpenCreate: () => void;
+  onOpenEdit: (taskId: string) => void;
 }
 
-export function Column({ column, tasks }: ColumnProps) {
+export function Column({
+  column,
+  tasks,
+  onOpenCreate,
+  onOpenEdit,
+}: ColumnProps) {
   return (
     <div className="column">
       <div className="column-header">
@@ -19,11 +26,15 @@ export function Column({ column, tasks }: ColumnProps) {
 
       <div className="column-tasks">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard
+            key={task.id}
+            task={task}
+            onEdit={() => onOpenEdit(task.id)}
+          />
         ))}
       </div>
 
-      <AddTaskButton />
+      <AddTaskButton onClick={onOpenCreate} />
     </div>
   );
 }
